@@ -25,10 +25,9 @@ namespace Assignment4.Operations
         }
 
         //10. Get all categories
-        public static dynamic GetCategories(NorthwindContext db)
+        public static List<Category> GetCategories(NorthwindContext db)
         {
-            var categories = db.Categories.ToList();
-
+            List<Category> categories = db.Categories.ToList();
             return categories;
         }
 

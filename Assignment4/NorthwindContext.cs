@@ -6,7 +6,7 @@ namespace Assignment4
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -19,7 +19,7 @@ namespace Assignment4
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().Property(x => x.Name).HasColumnName("categoryName");
-            modelBuilder.Entity<OrderDetails>().HasKey(o => new { o.OrderId, o.ProductId });
+            modelBuilder.Entity<OrderDetail>().HasKey(o => new { o.OrderId, o.ProductId });
         }
     }
 }

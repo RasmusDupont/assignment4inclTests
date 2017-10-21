@@ -18,7 +18,7 @@ namespace Assignment4
             Debug.WriteLine(p);
         }
 
-        public dynamic GetCategories()
+        public List<Category> GetCategories()
         {
             return CategoryOperations.GetCategories(db);
         }
@@ -43,37 +43,37 @@ namespace Assignment4
             return CategoryOperations.UpdateCategory(db, id, name, description);
         }
 
-        public dynamic GetProduct(int id)
+        public Product GetProduct(int id)
         {
             return ProductOperations.GetProduct(db, id);
         }
 
-        public dynamic GetProductByName(string name)
+        public List<Product> GetProductByName(string name)
         {
             return ProductOperations.GetProductsBySubstring(db, name);
         }
 
-        public dynamic GetProductByCategory(int category)
+        public List<Product> GetProductByCategory(int category)
         {
             return ProductOperations.GetProductsByCategoryId(db, category);
         }
 
-        public dynamic GetOrder(int id)
+        public Order GetOrder(int id)
         {
             return OrderOperations.GetOrderById(db, id);
         }
 
-        public dynamic GetOrders()
+        public List<Order> GetOrders()
         {
             return OrderOperations.GetAllOrders(db);
         }
 
-        public dynamic GetOrderDetailsByOrderId(int id)
+        public List<OrderDetail> GetOrderDetailsByOrderId(int id)
         {
             return OrderDetailsOperations.GetOrderDetails(db, id);
         }
 
-        public dynamic GetOrderDetailsByProductId(int id)
+        public List<OrderDetail> GetOrderDetailsByProductId(int id)
         {
             return OrderDetailsOperations.GetProductDetails(db, id);
         }

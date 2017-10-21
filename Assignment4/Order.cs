@@ -8,12 +8,13 @@ namespace Assignment4
     {
         [Column("OrderId")]
         public int Id { get; set; }
+        [Column("OrderDate")]
         public DateTime Date { get; set; }
-        public DateTime Required { get; set; }
-        public DateTime ShippedDate { get; set; }
+        public DateTime RequiredDate { get; set; }
+        public Nullable<DateTime> ShippedDate { get; set; }
         public double Freight { get; set; }
         public string ShipName { get; set; }
         public string ShipCity { get; set; }
-        public List<OrderDetails> OrderDetails { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
     }
 }

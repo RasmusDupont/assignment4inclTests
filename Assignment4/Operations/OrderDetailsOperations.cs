@@ -9,24 +9,22 @@ namespace Assignment4.Operations
     class OrderDetailsOperations
     {
         //4. Get the details for a specific order ID
-        public static dynamic GetOrderDetails(NorthwindContext db, int id)
+        public static List<OrderDetail> GetOrderDetails(NorthwindContext db, int id)
         {
-            var orderDetails = db.OrderDetails
+            List<OrderDetail> orderDetails = db.OrderDetails
                 .Where(x => x.OrderId == id)
-                .Include(o => o.Product)
-                .Select(d => new { d.Product.Name, d.Product.UnitPrice, d.Quantity });
+                .Include(o => o.Product).ToList();
 
             return orderDetails;
         }
 
         //5. Get the details for a specific product ID
-        public static dynamic GetProductDetails(NorthwindContext db, int id)
+        public static List<OrderDetail> GetProductDetails(NorthwindContext db, int id)
         {
-            var productDetails = db.OrderDetails
+            List<OrderDetail> oDetails = db.OrderDetails
                 .Where(p => p.ProductId == id)
-                .Include(oD => oD.Order)
-                .Select(p => new { OrderDate = p.Order.Date, p.UnitPrice, p.Quantity });
-            return productDetails;
+                .Include(oD => oD.Order).ToList();
+            return oDetails;
         }
     }
 }

@@ -9,31 +9,49 @@ namespace Assignment4.Operations
     class ProductOperations
     {
         //6. Get a single product by ID
-        public static dynamic GetProduct(NorthwindContext db, int id)
+        public static Product GetProduct(NorthwindContext db, int id)
         {
-            var product = db.Products
-                .Where(x => x.Id == id);
+            Product product = db.Products
+                .Where(x => x.Id == id)
+                .Include(c => c.Category).
+                FirstOrDefault();
 
             return product;
         }
 
         //7. Get a list of products that contains a substring
-        public static dynamic GetProductsBySubstring(NorthwindContext db, string sub)
+        public static List<Product> GetProductsBySubstring(NorthwindContext db, string sub)
         {
-            var products = db.Products
+            List<Product> products = db.Products
                 .Where(x => x.Name.Contains(sub))
                 .Include(c => c.Category)
-                .Select(p => new { p.Name, CategoryName = p.Category.Name }).ToList();
+                .Select(s => new Product
+                {
+                    Name = s.Name,
+                    Category = new Category
+                    {
+                        Name = s.Category.Name
+                    }
+                })
+                .ToList();
 
             return products;
         }
 
         //8. Get products by category ID
-        public static dynamic GetProductsByCategoryId(NorthwindContext db, int id)
+        public static List<Product> GetProductsByCategoryId(NorthwindContext db, int id)
         {
-            var products = db.Products
+            List<Product> products = db.Products
                 .Where(x => x.Category.Id == id)
-                .Select(p => new { p.Name, CategoryName = p.Category.Name }).ToList();
+                .Select(s => new Product
+                {
+                    Name = s.Name,
+                    Category = new Category
+                    {
+                        Name = s.Category.Name
+                    }
+                })
+                .ToList();
 
             return products;
         }

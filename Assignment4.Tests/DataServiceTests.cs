@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assignment4.Tests
@@ -101,7 +102,7 @@ namespace Assignment4.Tests
             Assert.Equal(0, product.Id);
             Assert.Null(product.Name);
             Assert.Equal(0.0, product.UnitPrice);
-            Assert.Null(product.QuantityPerUnit);
+            Assert.Null(product.QuantityUnit);
             Assert.Equal(0, product.UnitsInStock);
         }
 
@@ -111,7 +112,7 @@ namespace Assignment4.Tests
             var service = new DataService();
             var product = service.GetProduct(1);
             Assert.Equal("Chai", product.Name);
-            //Assert.Equal("Beverages", product.Category.Name);
+            Assert.Equal("Beverages", product.Category.Name);
         }
 
         [Fact]
@@ -142,7 +143,7 @@ namespace Assignment4.Tests
             var order = new Order();
             Assert.Equal(0, order.Id);
             Assert.Equal(new DateTime(), order.Date);
-            Assert.Equal(new DateTime(), order.Required);
+            Assert.Equal(new DateTime(), order.RequiredDate);
             Assert.Null(order.OrderDetails);
             Assert.Null(order.ShipName);
             Assert.Null(order.ShipCity);
@@ -171,7 +172,7 @@ namespace Assignment4.Tests
         [Fact]
         public void OrderDetails_Object_HasOrderProductUnitPriceQuantityAndDiscount()
         {
-            var orderDetails = new OrderDetails();
+            var orderDetails = new OrderDetail();
             Assert.Equal(0, orderDetails.OrderId);
             Assert.Null(orderDetails.Order);
             Assert.Equal(0, orderDetails.ProductId);

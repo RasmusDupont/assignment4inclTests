@@ -9,13 +9,13 @@ namespace Assignment4.Operations
     class OrderOperations
     {
         //1. Get a single order by ID
-        public static dynamic GetOrderById(NorthwindContext db, int id)
+        public static Order GetOrderById(NorthwindContext db, int id)
         {
-            var order = db.Orders.Where(x => x.Id == id)
+            Order order = db.Orders.Where(x => x.Id == id)
                 .Include(o => o.OrderDetails)
-                .ThenInclude(d => d.Product)
-                .ThenInclude(p => p.Category).ToList();
-
+                .ThenInclude(d => d.Product) 
+                .ThenInclude(p => p.Category) 
+                .FirstOrDefault();
             return order;
         }
 
@@ -30,11 +30,18 @@ namespace Assignment4.Operations
         }
 
         //3. List all orders
-        public static dynamic GetAllOrders(NorthwindContext db)
+        public static List<Order> GetAllOrders(NorthwindContext db)
         {
-            var orders = db.Orders
-                .Select(o => new { o.Id, o.ShippedDate, o.ShipName, o.ShipCity })
-                .Where(r => r.ShippedDate != null).ToList();
+            List<Order> orders = db.Orders
+                .Select(o => new Order {
+                    Id = o.Id,
+                    ShippedDate = o.ShippedDate,
+                    ShipName = o.ShipName,
+                    ShipCity = o.ShipCity })
+                .ToList();
+
+            
+
 
             return orders;
         }
