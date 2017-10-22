@@ -8,14 +8,14 @@ using Remotion.Linq.Clauses;
 
 namespace Assignment4
 {
-    public class DataService
+    public class DataService : IDataService
     {
         private static NorthwindContext db = new NorthwindContext();
-        
+
         public static void Main(string[] args)
         {
-            string p = ProductOperations.GetProduct(db, 1).ToString();
-            Debug.WriteLine(p);
+            //string p = ProductOperations.GetProduct(db, 1).ToString();
+            //Debug.WriteLine(p);
         }
 
         public List<Category> GetCategories()
