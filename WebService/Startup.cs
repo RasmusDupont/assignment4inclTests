@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Assignment4;
+using System.Web;
+
 
 namespace WebService
 {
@@ -26,6 +28,7 @@ namespace WebService
         {
             services.AddMvc();
             services.AddSingleton<IDataService, DataService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,7 +39,11 @@ namespace WebService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("getProductsByName", "api/{controller=Products}/{action=Name}/{name?}");
+                routes.MapRoute("getProductsByCategory", "api/{controller=Products}/{action=Category}/{id?}");
+            });
         }
     }
 }

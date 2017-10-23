@@ -7,13 +7,15 @@ namespace WebService.DTO
 {
     public class ProductSimpleDTO
     {
+        
+
         public ProductSimpleDTO(string name, string categoryName)
         {
             Name = name;
-            CategoryName = categoryName;
+            CategoryName = new CategoryNameDTO(categoryName);
         }
 
         public string Name { get; set; }
-        public string CategoryName { get; set; }
+        public CategoryNameDTO CategoryName { get; set; }
     }
 }

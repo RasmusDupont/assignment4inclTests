@@ -11,12 +11,12 @@ namespace WebService.DTO
         public ProductDTO(string name, double unitPrice, string categoryName)
         {
             Name = name;
-            unitPrice = UnitPrice;
-            categoryName = CategoryName;
+            UnitPrice = unitPrice;
+            Category = new CategoryNameDTO(categoryName);
         }
 
         public string Name { get; set; }
         public double UnitPrice { get; set; }
-        public string CategoryName { get; set; }
+        public CategoryNameDTO Category { get; set; }
     }
 }

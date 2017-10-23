@@ -14,9 +14,9 @@ namespace WebService.Controllers
     [Route("api/products")]
     public class ProductsController : Controller
     {
-        DataService dataservice;
+        private IDataService dataservice;
 
-        public ProductsController(DataService dataservice)
+        public ProductsController(IDataService dataservice)
         {
             this.dataservice = dataservice;
         }
@@ -36,44 +36,49 @@ namespace WebService.Controllers
         }
 
         //7. GET: api/products/name
-        [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         public IActionResult Name(string name)
         {
-            List<ProductSimpleDTO> result = new List<ProductSimpleDTO>();
+            List<dynamic> result = new List<dynamic>();
             List<Product> products = dataservice.GetProductByName(name);
-            if (products != null)
+            if (products.Count > 0)
             {
                 for (int i = 0; i < products.Count; i++)
                 {
-                    result.Add(new ProductSimpleDTO(
-                            products[i].Name,
-                            products[i].Category.Name
-                        ));
+                    result.Add(new
+                    {
+                        ProductName = products[i].Name,
+                        Categeory = new
+                        {
+                            Name = products[i].Category.Name
+                        }
+                    });
                 }
                 return Ok(result);
             }
-            return NotFound();
+            return NotFound(result);
         }
 
-        //8. GET: api/products/categories
-        [HttpGet("{id}")]
-        public IActionResult Categories(int id)
+        //8. GET: api/products/category
+        [HttpGet("category/{id}")]
+        public IActionResult Category(int id)
         {
-            List<ProductDTO> result = new List<ProductDTO>();
+            List<dynamic> result = new List<dynamic>();
             List<Product> products = dataservice.GetProductByCategory(id);
-            if (products != null)
+            if (products.Count > 0)
             {
                 for (int i = 0; i < products.Count; i++)
                 {
-                    result.Add(new ProductDTO(
-                            products[i].Name,
-                            products[i].UnitPrice,
-                            products[i].Category.Name
-                        ));
+                    result.Add(new
+                    {
+                        Name = products[i].Name,
+                        UnitPrice = products[i].UnitPrice,
+                        CategoryName = products[i].Category.Name
+                    });
                 }
                 return Ok(result);
             }
-            return NotFound();
+            return NotFound(result);
         }
     }
 }
